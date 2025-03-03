@@ -3,6 +3,7 @@ import flet as ft                  # Фреймворк для создания 
 from ui.styles import AppStyles    # Импорт стилей приложения
 import asyncio                     # Библиотека для асинхронного программирования
 
+
 class MessageBubble(ft.Container):
     """
     Компонент "пузырька" сообщения в чате.

@@ -4,8 +4,10 @@ import os       # Библиотека для работы с операцион
 from dotenv import load_dotenv  # Библиотека для загрузки переменных окружения из .env файла
 from utils.logger import AppLogger  # Импорт собственного логгера для отслеживания работы
 
+
 # Загрузка переменных окружения из .env файла при импорте модуля
 load_dotenv()
+
 
 class OpenRouterClient:
     """
@@ -78,7 +80,7 @@ class OpenRouterClient:
             models_data = response.json()
             
             # Логирование успешного получения списка моделей
-            self.logger.info(f"Retrieved {len(models_data["data"])} models")
+            self.logger.info(f"Retrieved {len(models_data['data'])} models")
             
             # Преобразование данных в нужный формат
             return [

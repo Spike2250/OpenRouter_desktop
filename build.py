@@ -5,6 +5,7 @@ import shutil  # Для операций с файлами и директори
 import subprocess  # Для запуска внешних процессов
 from pathlib import Path  # Для удобной работы с путями файловой системы
 
+
 def build_windows():
     """Сборка исполняемого файла для Windows с помощью PyInstaller"""
     print("Building Windows executable...")
@@ -44,6 +45,7 @@ def build_windows():
     except:
         print("Windows build completed! Executable location: dist/AI Chat.exe")
 
+
 def build_linux():
     """Сборка исполняемого файла для Linux с помощью PyInstaller"""
     print("Building Linux executable...")
@@ -76,6 +78,7 @@ def build_linux():
     except:
         print("Linux build completed! Executable location: dist/aichat")
 
+
 def main():
     """Основная функция сборки
     
@@ -89,8 +92,6 @@ def main():
     else:  # Если другая ОС
         print("Unsupported platform")
 
-# Точка входа в скрипт
-# Если скрипт запущен напрямую (не импортирован как модуль),
-# то запускаем основную функцию
+
 if __name__ == "__main__":
     main()

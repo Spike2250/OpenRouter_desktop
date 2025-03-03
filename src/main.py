@@ -1,17 +1,18 @@
 # Импорт необходимых библиотек и модулей
-import flet as ft                                  # Фреймворк для создания кроссплатформенных приложений с современным UI
-from api.openrouter import OpenRouterClient        # Клиент для взаимодействия с AI API через OpenRouter
-from ui.styles import AppStyles                    # Модуль с настройками стилей интерфейса
-from ui.components import MessageBubble, ModelSelector  # Компоненты пользовательского интерфейса
-from utils.cache import ChatCache                  # Модуль для кэширования истории чата
-from utils.logger import AppLogger                 # Модуль для логирования работы приложения
-from utils.analytics import Analytics              # Модуль для сбора и анализа статистики использования
-from utils.monitor import PerformanceMonitor       # Модуль для мониторинга производительности
-import asyncio                                     # Библиотека для асинхронного программирования
-import time                                        # Библиотека для работы с временными метками
-import json                                        # Библиотека для работы с JSON-данными
-from datetime import datetime                      # Класс для работы с датой и временем
-import os                                          # Библиотека для работы с операционной системой
+import flet as ft
+from api.openrouter import OpenRouterClient
+from ui.styles import AppStyles
+from ui.components import MessageBubble, ModelSelector
+from utils.cache import ChatCache
+from utils.logger import AppLogger
+from utils.analytics import Analytics
+from utils.monitor import PerformanceMonitor
+import asyncio
+import time
+import json
+from datetime import datetime
+import os
+
 
 class ChatApp:
     """
@@ -213,7 +214,6 @@ class ChatApp:
             snack.open = True                     # Открытие уведомления
             page.update()                         # Обновление страницы
 
-
         async def show_analytics(e):
             """Показ статистики использования"""
             stats = self.analytics.get_statistics()    # Получение статистики
@@ -249,7 +249,6 @@ class ChatApp:
                 self.logger.error(f"Ошибка очистки истории: {e}")
                 show_error_snack(page, f"Ошибка очистки истории: {str(e)}")
 
-
         async def confirm_clear_history(e):
             """Подтверждение очистки истории"""
             def close_dlg(e):                     # Функция закрытия диалога
@@ -258,7 +257,6 @@ class ChatApp:
             async def clear_confirmed(e):         # Функция подтверждения очистки
                 await clear_history(e)
                 close_dialog(dialog)
-                
 
             # Создание диалога подтверждения
             dialog = ft.AlertDialog(
@@ -271,7 +269,6 @@ class ChatApp:
                 ],
                 actions_alignment=ft.MainAxisAlignment.END,
             )
-
             page.overlay.append(dialog)
             dialog.open = True
             page.update()
@@ -283,7 +280,6 @@ class ChatApp:
                                     
             if dialog in page.overlay:            # Удаление из overlay
                 page.overlay.remove(dialog)
-      
 
         async def save_dialog(e):
             """
@@ -335,8 +331,6 @@ class ChatApp:
             except Exception as e:
                 self.logger.error(f"Ошибка сохранения: {e}")
                 show_error_snack(page, f"Ошибка сохранения: {str(e)}")
-
-    
 
         # Создание компонентов интерфейса
         self.message_input = ft.TextField(**AppStyles.MESSAGE_INPUT) # Поле ввода
@@ -412,7 +406,7 @@ class ChatApp:
             **AppStyles.MODEL_SELECTION_COLUMN   # Применение стилей к колонке
         )
 
-                # Создание основной колонки приложения
+        # Создание основной колонки приложения
         self.main_column = ft.Column(
             controls=[                            # Размещение основных элементов
                 model_selection,
@@ -431,10 +425,12 @@ class ChatApp:
         # Логирование запуска
         self.logger.info("Приложение запущено")
 
+
 def main():
     """Точка входа в приложение"""
     app = ChatApp()                              # Создание экземпляра приложения
     ft.app(target=app.main)                      # Запуск приложения
+
 
 if __name__ == "__main__":
     main()                                       # Запуск если файл запущен напрямую

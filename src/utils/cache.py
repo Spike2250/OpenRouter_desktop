@@ -4,6 +4,7 @@ import json        # Библиотека для работы с JSON форма
 from datetime import datetime  # Библиотека для работы с датой и временем
 import threading   # Библиотека для обеспечения потокобезопасности
 
+
 class ChatCache:
     """
     Класс для кэширования истории чата в SQLite базе данных.
