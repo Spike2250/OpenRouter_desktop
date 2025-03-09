@@ -1,11 +1,17 @@
 import flet as ft
-from api.openrouter import OpenRouterClient
-from ui.styles import AppStyles
-from ui.components import MessageBubble, ModelSelector
-from utils.cache import ChatCache
-from utils.logger import AppLogger
-from utils.analytics import Analytics
-from utils.monitor import PerformanceMonitor
+from api import OpenRouterClient
+from ui import (
+    AppStyles,
+    MessageBubble,
+    ModelSelector
+)
+from utils import (
+    ChatCache,
+    AppLogger,
+    Analytics,
+    PerformanceMonitor,
+    Notificator
+)
 import asyncio
 import time
 import json
@@ -33,6 +39,7 @@ class ChatApp:
         self.logger = AppLogger()                  # Инициализация системы логирования
         self.analytics = Analytics(self.cache)     # Инициализация системы аналитики с передачей кэша
         self.monitor = PerformanceMonitor()        # Инициализация системы мониторинга
+        self.notificator = Notificator()
 
         # Создание компонента для отображения баланса API
         self.balance_text = ft.Text(
@@ -79,7 +86,12 @@ class ChatApp:
         try:
             text_balance, balance = self.api_client.get_balance()         # Запрос баланса через API
             self.balance_text.value = f"Баланс: {text_balance}"  # Обновление текста с балансом
-            self.balance_text.color = ft.Colors.GREEN_400   # Установка зеленого цвета для успешного получения
+            if balance > 6:
+                self.balance_text.color = ft.Colors.GREEN_400   # Установка зеленого цвета для успешного получения
+            else:
+                self.balance_text.color = ft.Colors.YELLOW_400
+                self.notificator.send_notification_about_balance(text_balance)
+
         except Exception as e:
             # Обработка ошибки получения баланса
             self.balance_text.value = "Баланс: н/д"         # Установка текста ошибки
