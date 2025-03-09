@@ -1,4 +1,3 @@
-# Импорт необходимых библиотек и модулей
 import flet as ft
 from api.openrouter import OpenRouterClient
 from ui.styles import AppStyles
@@ -78,8 +77,8 @@ class ChatApp:
         при ошибке - красным с текстом 'н/д' (не доступен).
         """
         try:
-            balance = self.api_client.get_balance()         # Запрос баланса через API
-            self.balance_text.value = f"Баланс: {balance}"  # Обновление текста с балансом
+            text_balance, balance = self.api_client.get_balance()         # Запрос баланса через API
+            self.balance_text.value = f"Баланс: {text_balance}"  # Обновление текста с балансом
             self.balance_text.color = ft.Colors.GREEN_400   # Установка зеленого цвета для успешного получения
         except Exception as e:
             # Обработка ошибки получения баланса

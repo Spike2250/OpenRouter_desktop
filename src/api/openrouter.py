@@ -167,7 +167,8 @@ class OpenRouterClient:
             if data:
                 data = data.get('data')
                 # Вычисление доступного баланса (всего кредитов минус использовано)
-                return f"${(data.get('total_credits', 0)-data.get('total_usage', 0)):.2f}"
+                current_balance = data.get('total_credits', 0) - data.get('total_usage', 0)
+                return f"${round(current_balance, 2)}", current_balance
             return "Ошибка"
         except Exception as e:
             # Формирование сообщения об ошибке
